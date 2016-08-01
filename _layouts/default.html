@@ -106,7 +106,7 @@
         <div class="container">
             <div class="col-sm-3">
               <div class="fixed-condition">
-                <a href="/"><img id="about" src="/static/img/avatar.jpg" height="75px" width="75px" /></a>
+                <a href="/"><img id="about" src="/static/img/self.png" height="200px" width="200px" /></a>
                 <h1 class="author-name">{{ site.author }}</h1>
                 {% if site.about %}
                 <div id="about">
@@ -121,11 +121,6 @@
                         {% endfor %}
                     </ul>
                 </div>
-
-                <div class="search" id="js-search">
-                  <input type="text" placeholder="(sitemap)~$ type to search" class="search__input form-control" id="js-search__input">
-                  <ul class="search__results" id="js-search__results"></ul>
-                </div>
                 <hr />
 
                 <strong>Navigation</strong><br />
@@ -136,20 +131,9 @@
               </div><!-- end /.fixed-condition -->
             </div>
 
-            <div class="col-sm-8 col-offset-1">
+            <div class="col-sm-7 col-offset-1">
                 {{ content }}
-
-                <footer>
-                    &copy; {{ site.author }}
-                    {% if site.github %} 
-                    - <a href="{{ site.github }}">{{ site.github }}</a> - Powered by Jekyll.
-                    {% endif %}
-
-                    <div class="btn-github" style="float:right;">
-                        <iframe src="https://ghbtns.com/github-btn.html?user=agusmakmun&repo=agusmakmun.github.io&type=star&count=true" frameborder="0" scrolling="0" width="85" height="20px"></iframe>                    
-                        <iframe src="https://ghbtns.com/github-btn.html?user=agusmakmun&repo=agusmakmun.github.io&type=fork&count=true" frameborder="0" scrolling="0" width="85" height="20px"></iframe>
-                    </div>
-                </footer>
+                {% include footer.html %}
             </div><!-- end /.col-sm-8 -->
         </div><!-- end /.container -->
 
