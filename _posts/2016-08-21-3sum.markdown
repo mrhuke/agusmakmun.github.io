@@ -1,0 +1,95 @@
+---
+layout=post
+title:"3sum"
+date: 2016-08-21 17:27:55 -0400
+categories: [cpp]
+---
+#include <iostream>
+#include <algorithm>
+#include <iterator>
+#include <vector>
+using namespace std;
+
+// return one combination
+bool sum3(int arr[], int N, int sum, int out[])
+{
+sort(arr, arr+N);
+for (int i=0; i!=N-2; ++i){
+	int sum2 = sum - arr[i];
+	int j=i+1, k=N-1;
+	while(j<k){
+		if (arr[j]+arr[k] == sum2){
+			out[0] = arr[i];
+			out[1] = arr[j];
+			out[2] = arr[k];
+			return true;
+		}
+		else if (arr[j]+arr[k] < sum2)
+			++j;
+		else --k;
+	}
+}
+return false;
+}
+
+
+// return all combinations, O(N^2)
+vector<vector<int> > sum3_all(int arr[], int N, int sum)
+{
+vector<vector<int> > res;
+sort(arr, arr+N);
+copy(arr, arr+N, ostream_iterator<int>(cout, " ")); cout<<endl;
+for (int i=0; i!=N-2; ++i){
+	int sum2 = sum - arr[i];
+	int j=i+1, k=N-1;
+	while(j < k){
+		if (arr[j]+arr[k] == sum2){
+			vector<int> tmp;
+			tmp.push_back(arr[i]);
+			tmp.push_back(arr[j]);
+			tmp.push_back(arr[k]);
+			res.push_back(tmp);
+			if (arr[j+1]==arr[j] && arr[k-1]==arr[k]){
+				vector<int> tmp;
+				tmp.push_back(arr[i]);
+				tmp.push_back(arr[j+1]);
+				tmp.push_back(arr[k]);
+				res.push_back(tmp);
+
+				tmp.clear();
+				tmp.push_back(arr[i]);
+				tmp.push_back(arr[j]);
+				tmp.push_back(arr[k-1]);
+				res.push_back(tmp);
+
+				++j; --k;				
+			}
+			else if (arr[j+1]==arr[j]) ++j;
+			else if (arr[k-1]==arr[k]) --k;
+			else { ++j; --k; }
+		}
+		else if (arr[j]+arr[k] < sum2)
+			++j;
+		else --k;
+	}
+}
+return res;
+}
+
+int main()
+{
+int arr[] = {3,1,7,5,3,9,6,3,8,9,9};
+int out[3], sum=19;
+if (sum3(arr, sizeof(arr)/sizeof(int), sum, out)) {
+	copy(out, out+3, ostream_iterator<int>(cout," "));
+	cout<<endl;
+}
+else cout<<"not exist!"<<endl;
+cout<<endl;
+
+vector<vector<int> > res = sum3_all(arr, sizeof(arr)/sizeof(int), sum);
+for (int i=0; i!=res.size(); ++i){
+	copy(res[i].begin(), res[i].end(), ostream_iterator<int>(cout, " "));
+	cout<<endl;
+}
+}
